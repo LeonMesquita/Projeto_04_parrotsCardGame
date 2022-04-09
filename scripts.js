@@ -63,10 +63,17 @@ function showCards(){
             const lista = document.querySelector(".cards-list")
     for (let cont = 0; cont < cardsList.length; cont++){
         let path = cardsList[cont].cardBack
-        lista.innerHTML += `<div class="card"> <img src= "images/front 1.png"> </div>`
+        lista.innerHTML += `<div class="card" onclick="turnCard(this, ${cont})"> <img src= "images/front 1.png"> </div>`
     }
 }
 
 showCards()
 
 
+function turnCard(card, index){
+    let path = cardsList[index].cardPath
+
+    card.querySelector("img").src = path
+    
+
+}
