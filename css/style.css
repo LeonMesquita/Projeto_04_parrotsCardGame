@@ -50,6 +50,23 @@ body{
 }
 
 
+.clock {
+    background-color: purple;
+    height: 70px;
+    width: 70px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+    position: fixed;
+    right: 40px;
+    top: 40px;
+}
+
+
 @media (max-width: 767px){
     .title {
         font-size: 36px;
@@ -61,5 +78,20 @@ body{
 
     .card {
         margin-right: 0;
+    }
+}
+
+@media (max-width: 530px){
+    .clock {
+        height: 40px;
+        width: 40px;
+        border-radius: 10px;
+        font-size: 30px;
+        right: 10px;
+        top: 10px;
+    }
+
+    .title {
+        margin-top: 60px;
     }
 }

@@ -1,9 +1,10 @@
-const cardBack = "images/front 1.png"
 
 
 let cardsNumber = 0
 let totalTurnedCards = 0
 let totalOfPlays = 0
+let time = 0
+let idInterval
 
 function setCardsNumber(){
     do{
@@ -34,7 +35,6 @@ function setCardsList(){
         cardsList.push(
             {
                 cardPath: cardsPath[i],
-                cardBack: "images/front 1.png",
 
             }
 
@@ -42,7 +42,6 @@ function setCardsList(){
         cardsList.push(
             {
                 cardPath: cardsPath[i],
-                cardBack: "images/front 1.png",
 
             }
 
@@ -66,6 +65,8 @@ function showCards(){
     for (let cont = 0; cont < cardsList.length; cont++){
         lista.innerHTML += `<div class="card" onclick="turnCard(this, ${cont})"> <img src= "images/front 1.png"> </div>`
     }
+
+    showTime()
 }
 
 showCards()
@@ -119,3 +120,21 @@ function flipCards(){
     cardsElements[1].querySelector("img").src = "images/front 1.png"
     cardsElements = []
 }
+
+
+function showTime(){
+    document.querySelector(".clock").innerHTML = time
+
+    idInterval = setInterval(decrement, 1000)
+}
+
+function decrement() {
+    time++
+    document.querySelector(".clock").innerHTML = time
+
+    if (totalTurnedCards === cardsList.length){
+        clearInterval(idInterval)
+    }
+
+}
+
