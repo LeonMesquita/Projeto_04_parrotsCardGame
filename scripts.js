@@ -62,18 +62,55 @@ function comparador() {
 function showCards(){
             const lista = document.querySelector(".cards-list")
     for (let cont = 0; cont < cardsList.length; cont++){
-        let path = cardsList[cont].cardBack
         lista.innerHTML += `<div class="card" onclick="turnCard(this, ${cont})"> <img src= "images/front 1.png"> </div>`
     }
 }
 
 showCards()
 
+let turnedCards = 0
+let card1Path
+let card2Path
+
+let cardsElements = []
 
 function turnCard(card, index){
     let path = cardsList[index].cardPath
+    if (turnedCards < 2){
+        card.querySelector("img").src = path
+        cardsElements.push(card)
+        turnedCards++
+        if (turnedCards === 1){
+            card1Path = path
+        }
+        else if (turnedCards === 2){
+            card.querySelector("img").src = path
+            card2Path = path
+            checkPlay()
+            turnedCards = 0
+            
+        }
+    }
+    else{
 
-    card.querySelector("img").src = path
+    }
+
+    
     
 
+}
+
+function checkPlay(){
+    if (card1Path === card2Path){
+        cardsElements = []
+    }
+    else {
+        setTimeout(flipCards, 1000)
+    }
+}
+
+function flipCards(){
+    cardsElements[0].querySelector("img").src = "images/front 1.png"
+    cardsElements[1].querySelector("img").src = "images/front 1.png"
+    cardsElements = []
 }
