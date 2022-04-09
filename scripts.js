@@ -2,6 +2,8 @@ const cardBack = "images/front 1.png"
 
 
 let cardsNumber = 0
+let totalTurnedCards = 0
+let totalOfPlays = 0
 
 function setCardsNumber(){
     do{
@@ -80,6 +82,7 @@ function turnCard(card, index){
         card.querySelector("img").src = path
         cardsElements.push(card)
         turnedCards++
+        totalOfPlays++
         if (turnedCards === 1){
             card1Path = path
         }
@@ -91,8 +94,9 @@ function turnCard(card, index){
             
         }
     }
-    else{
 
+    if (totalTurnedCards === cardsList.length){
+        alert(`Você ganhou em ${totalOfPlays} jogadas!`)
     }
 
     
@@ -102,6 +106,7 @@ function turnCard(card, index){
 
 function checkPlay(){
     if (card1Path === card2Path){
+        totalTurnedCards += 2
         cardsElements = []
     }
     else {
