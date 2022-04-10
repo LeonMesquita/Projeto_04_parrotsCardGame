@@ -71,14 +71,19 @@ body{
     transform: rotateY(180deg);
   }
 
-  .card:active .back-face {
+  .front-face {
     transform: rotateY(0deg);
   }
 
-  .card:active .front-face {
-    transform: rotateY(-180deg);
+ .card:active .back-face {
+    transform: rotateY(0deg);
+  }
+
+.card:active .front-face {
+    transform: rotateY(180deg);
     cursor: auto;
   }
+
 
 .face > img {
     height: 100px;

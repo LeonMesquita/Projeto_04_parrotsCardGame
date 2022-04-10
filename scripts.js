@@ -35,7 +35,7 @@ function startMatch(){
         cardsNumber = prompt("Informe com quantas cartas você quer jogar")
     } while (cardsNumber % 2 !== 0)
 
-   
+
 
 }
 
@@ -78,9 +78,9 @@ function comparador() {
 setCardsList()
 
 
+    const cards = document.querySelector(".cards-list")
 
 function showCards(){
-    const cards = document.querySelector(".cards-list")
     for (let cont = 0; cont < cardsList.length; cont++){
         cards.innerHTML += `<div class="card" onclick="turnCard(this, ${cont})">
 
@@ -133,6 +133,7 @@ function turnCard(card, index){
         alert(`Você ganhou em ${totalOfPlays} jogadas!`)
         let answer = prompt("deseja reiniciar a partida?")
         if (answer === "sim"){
+            cards.innerHTML = ""
             startMatch()
             setCardsList()
             showCards()
