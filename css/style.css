@@ -27,27 +27,69 @@ body{
 }
 
 .card {
-    background-color: #A7E9AF;
-    border-radius: 5px;
+ 
     height: 146px;
     width: 117px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     margin-right: 40px;
     margin-bottom: 40px;
-    border: solid 1px #99CEA8;
+ 
+
 
 }
 
-.card > img {
+.face {
+    width: 100%;
+    height: 100%;
+    background-color: #A7E9AF;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #99CEA8;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all 0.5s;
+    transform-style: preserve-3d;
+
+}
+
+.card-front {
+    width: 100%;
+    height: 100%;
+    background-color: #A7E9AF;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #99CEA8;
+}
+
+
+
+.back-face {
+    transform: rotateY(180deg);
+  }
+
+  .card:active .back-face {
+    transform: rotateY(0deg);
+  }
+
+  .card:active .front-face {
+    transform: rotateY(-180deg);
+    cursor: auto;
+  }
+
+.face > img {
     height: 100px;
     width: 100px;
 }
 
-.card:hover {
+.front-face:hover {
     cursor: pointer;
 }
+
+
 
 
 .clock {

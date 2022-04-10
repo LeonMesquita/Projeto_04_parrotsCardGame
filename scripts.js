@@ -5,16 +5,15 @@ let totalTurnedCards = 0
 let totalOfPlays = 0
 let time = 0
 let idInterval
+let cardsList = []
+let turnedCards = 0
+let card1Path
+let card2Path
 
-function setCardsNumber(){
-    do{
-        cardsNumber = prompt("Informe com quantas cartas você quer jogar")
-    } while (cardsNumber % 2 !== 0)
-}
+let cardsElements = []
 
-setCardsNumber()
 
-let cardsPath = [
+const cardsPath = [
     "images/cards_path/bobrossparrot.gif",
     "images/cards_path/explodyparrot.gif",
     "images/cards_path/fiestaparrot.gif",
@@ -25,10 +24,30 @@ let cardsPath = [
 ]
 
 
+function startMatch(){
+    cardsNumber = 0
+    totalTurnedCards = 0
+    totalOfPlays = 0
+    time = 0
+    cardsList = []
 
-const cardsList = []
+    do{
+        cardsNumber = prompt("Informe com quantas cartas você quer jogar")
+    } while (cardsNumber % 2 !== 0)
 
-// Atribuindo as imagens para os cards
+   
+
+}
+
+startMatch()
+
+
+
+
+
+
+
+// Distribuindo os gifs entre os cards
 function setCardsList(){
    let i = 0
     for(let cont = 0; cont < cardsNumber; cont+=2){
@@ -51,19 +70,24 @@ function setCardsList(){
     cardsList.sort(comparador);
 }
 
-setCardsList()
 
 function comparador() { 
 	return Math.random() - 0.5; 
 }
 
+setCardsList()
 
 
 
 function showCards(){
-            const lista = document.querySelector(".cards-list")
+    const cards = document.querySelector(".cards-list")
     for (let cont = 0; cont < cardsList.length; cont++){
-        lista.innerHTML += `<div class="card" onclick="turnCard(this, ${cont})"> <img src= "images/front 1.png"> </div>`
+        cards.innerHTML += `<div class="card" onclick="turnCard(this, ${cont})">
+
+        <div class="front-face face">
+            <img src= "images/front 1.png">
+        </div>             
+        </div>`
     }
 
     showTime()
@@ -71,25 +95,34 @@ function showCards(){
 
 showCards()
 
-let turnedCards = 0
-let card1Path
-let card2Path
 
-let cardsElements = []
+let card1Index
+let card2Index
 
 function turnCard(card, index){
     let path = cardsList[index].cardPath
     if (turnedCards < 2){
+ 
+
         card.querySelector("img").src = path
+        //card.querySelector("div").classList.add('card-front')
+        card.querySelector("div").classList.toggle('front-face')
+        card.onclick=""
+
+
         cardsElements.push(card)
+
         turnedCards++
         totalOfPlays++
         if (turnedCards === 1){
             card1Path = path
+            card1Index = index
+        
         }
         else if (turnedCards === 2){
             card.querySelector("img").src = path
             card2Path = path
+            card2Index = index
             checkPlay()
             turnedCards = 0
             
@@ -98,6 +131,15 @@ function turnCard(card, index){
 
     if (totalTurnedCards === cardsList.length){
         alert(`Você ganhou em ${totalOfPlays} jogadas!`)
+        let answer = prompt("deseja reiniciar a partida?")
+        if (answer === "sim"){
+            startMatch()
+            setCardsList()
+            showCards()
+
+
+            
+        }
     }
 
     
@@ -108,14 +150,22 @@ function turnCard(card, index){
 function checkPlay(){
     if (card1Path === card2Path){
         totalTurnedCards += 2
+        cardsElements[0].onclick=""
+        cardsElements[1].onclick=""
         cardsElements = []
     }
     else {
+        cardsElements[0].setAttribute('onclick', `turnCard(this, ${card1Index})`)
+        cardsElements[1].setAttribute('onclick', `turnCard(this, ${card2Index})`)
         setTimeout(flipCards, 1000)
     }
 }
+//
+
 
 function flipCards(){
+    cardsElements[0].querySelector("div").classList.toggle('front-face')
+    cardsElements[1].querySelector("div").classList.toggle('front-face')
     cardsElements[0].querySelector("img").src = "images/front 1.png"
     cardsElements[1].querySelector("img").src = "images/front 1.png"
     cardsElements = []
