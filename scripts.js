@@ -9,8 +9,8 @@ let cardsList = []
 let turnedCards = 0
 let card1Path
 let card2Path
-
-let cardsElements = []
+let previousCard
+let currentCard
 
 
 const cardsPath = [
@@ -78,7 +78,7 @@ function comparador() {
 setCardsList()
 
 
-    const cards = document.querySelector(".cards-list")
+const cards = document.querySelector(".cards-list")
 
 function showCards(){
     for (let cont = 0; cont < cardsList.length; cont++){
@@ -105,9 +105,7 @@ function turnCard(card, index){
  
 
         card.querySelector("img").src = path
-        //card.querySelector("div").classList.add('card-front')
         card.querySelector("div").classList.toggle('front-face')
-        card.onclick=""
 
 
         cardsElements.push(card)
@@ -117,12 +115,14 @@ function turnCard(card, index){
         if (turnedCards === 1){
             card1Path = path
             card1Index = index
+            previousCard = card
         
         }
         else if (turnedCards === 2){
             card.querySelector("img").src = path
             card2Path = path
             card2Index = index
+            currentCard = card
             checkPlay()
             turnedCards = 0
             
@@ -149,15 +149,12 @@ function turnCard(card, index){
 }
 
 function checkPlay(){
-    if (card1Path === card2Path){
+    if (card1Path === card2Path && currentCard !== previousCard){
         totalTurnedCards += 2
-        cardsElements[0].onclick=""
-        cardsElements[1].onclick=""
-        cardsElements = []
+        previousCard.onclick=""
+        currentCard.onclick=""
     }
     else {
-        cardsElements[0].setAttribute('onclick', `turnCard(this, ${card1Index})`)
-        cardsElements[1].setAttribute('onclick', `turnCard(this, ${card2Index})`)
         setTimeout(flipCards, 1000)
     }
 }
@@ -165,21 +162,21 @@ function checkPlay(){
 
 
 function flipCards(){
-    cardsElements[0].querySelector("div").classList.toggle('front-face')
-    cardsElements[1].querySelector("div").classList.toggle('front-face')
-    cardsElements[0].querySelector("img").src = "images/front 1.png"
-    cardsElements[1].querySelector("img").src = "images/front 1.png"
-    cardsElements = []
+    previousCard.querySelector("div").classList.toggle('front-face')
+    currentCard.querySelector("div").classList.toggle('front-face')
+    previousCard.querySelector("img").src = "images/front 1.png"
+    currentCard.querySelector("img").src = "images/front 1.png"
 }
 
 
 function showTime(){
+    
     document.querySelector(".clock").innerHTML = time
 
-    idInterval = setInterval(decrement, 1000)
+    idInterval = setInterval(increment, 1000)
 }
 
-function decrement() {
+function increment() {
     time++
     document.querySelector(".clock").innerHTML = time
 
